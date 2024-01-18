@@ -1,0 +1,45 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:13-alpine
+    command: ["postgres", "-c", "fsync=false", "-c", "full_page_writes=off"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+  app:
+    build:
+      context: .
+      dockerfile: app.Dockerfile
+    command: bash -c "bundle exec puma -C config/puma.rb"
+    environment:
+      PORT: 9169
+      RAILS_ENV: production
+      REDIS_URL: "redis://redis:6379/12"
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      RAILS_SERVE_STATIC_FILES: 'true'
+    volumes:
+      - .:/app
+    ports:
+      - "9169:9169"
+    depends_on:
+      - postgres
+  redis:
+    image: redis
+    volumes:
+      - ./tmp/db:/var/lib/redis/data
+  sidekiq:
+    build:
+      context: .
+    command: 'bundle exec sidekiq'
+    volumes:
+      - .:/app
+    environment:
+      RAILS_ENV: "production"
+      REDIS_URL: "redis://redis:6379/12"
+    depends_on:
+      - redis
+      - postgres

@@ -1,0 +1,90 @@
+<!-- app/views/dashboard.html.erb -->
+<div class="container mx-auto px-4 py-6">
+  <h1 class="text-3xl font-bold mb-8">Library Dashboard</h1>
+
+  <!-- Analytics Section -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <!-- Total Books -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <div class="text-lg font-semibold">Total Books</div>
+      <div class="text-2xl font-bold"><%= link_to @total_books, books_path %></div>
+    </div>
+
+    <!-- Total Borrowers -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <div class="text-lg font-semibold">Total Borrowers</div>
+      <div class="text-2xl font-bold"><%= link_to @total_borrowers, borrowers_path %></div>
+    </div>
+
+    <!-- Books Currently Borrowed -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <div class="text-lg font-semibold">Books Currently Borrowed</div>
+      <div class="text-2xl font-bold"><%= link_to @books_currently_borrowed, active_book_transactions_path %></div>
+    </div>
+
+    <!-- Recently Added Books -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <div class="text-lg font-semibold">Recently Added Books</div>
+      <div class="text-2xl font-bold"><%= link_to @recently_added_books, books_path %></div>
+    </div>
+  </div>
+
+  <!-- Issue Book Button -->
+  <div class="mb-6">
+    <%= link_to 'Issue a Book', new_book_transaction_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-lg" %>
+  </div>
+
+  <!-- Additional Dashboard Contents -->
+  <!-- You can add more sections like recent transactions, overdue books, etc. -->
+  <!-- Recent Book Transactions -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <!-- Recent Book Transactions -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4">Recent Book Transactions</h2>
+      <!-- Recent transactions list goes here -->
+       <ul class="list-disc list-inside">
+        <% @recent_transactions.each do |transaction| %>
+          <li>
+            <%= link_to transaction.book_master.name, book_path(transaction.book_master) %> borrowed by <%= link_to transaction.borrower.user.name, borrower_path(transaction.borrower) %>
+            on <%= transaction.borrow_date.strftime("%d/%m/%Y") %>.
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Overdue Books -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4">Overdue Books</h2>
+      <!-- Overdue books list goes here -->
+      <ul class="list-disc list-inside">
+        <% @overdue_books.each do |book| %>
+          <li>
+            <%= book.name %> (Due on <%= book.book_transactions.last.return_date.strftime("%d/%m/%Y") %>)
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Popular Books -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4">Popular Books</h2>
+      <!-- Popular books list goes here -->
+      <ul class="list-disc list-inside">
+        <% @popular_books.each do |book| %>
+          <li><%= link_to book.name, book_path(book) %> (Borrowed <%= book.book_transactions.count %> times)</li>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Top Borrowers -->
+    <div class="bg-white shadow rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4">Top Borrowers</h2>
+      <ul class="list-disc list-inside">
+        <% @top_borrowers.each do |borrower| %>
+          <li><%= link_to borrower.user.name, borrower_path(borrower) %> (Borrowed <%= borrower.book_transactions.count %> times)</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>

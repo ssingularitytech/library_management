@@ -1,0 +1,50 @@
+<div class="overflow-x-auto">
+  <h1 class="text-2xl font-semibold mb-4">Borrowers</h1>
+  <table class="min-w-full bg-white border-collapse w-full">
+    <thead>
+      <tr>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Borrower ID
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          User ID
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Name
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Email
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Phone
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700">
+      <% @borrowers.each do |borrower| %>
+        <tr>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= borrower.id %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= borrower.user.id %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= link_to borrower do %>
+              <%= borrower.user.name %>
+            <% end%>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= borrower.user.email %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= borrower.user.phone %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @borrowers %>
+</div>
+

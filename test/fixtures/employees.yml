@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  status: false
+  phone_number: MyString
+  designation: MyString
+  joined_at: 2024-01-11 18:08:11
+  leaf_at: 2024-01-11 18:08:11
+  user: one
+
+two:
+  name: MyString
+  email: MyString
+  status: false
+  phone_number: MyString
+  designation: MyString
+  joined_at: 2024-01-11 18:08:11
+  leaf_at: 2024-01-11 18:08:11
+  user: two

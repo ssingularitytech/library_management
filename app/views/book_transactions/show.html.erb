@@ -1,0 +1,27 @@
+<!-- show.html.erb -->
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-semibold mb-4">Book Transaction Details</h1>
+  <div class="bg-white shadow-lg rounded-lg p-6">
+    <div class="mb-4">
+      <h2 class="text-xl font-semibold">Transaction ID: <%= @book_transaction.id %></h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div><strong>Book Name:</strong> <%= @book_transaction.book_master.name %></div>
+      <div><strong>Book Author:</strong> <%= @book_transaction.book_master.author %></div>
+      <div><strong>Borrower Name:</strong> <%= @book_transaction.borrower.user.name %></div>
+      <div><strong>Borrower Phone:</strong> <%= @book_transaction.borrower.user.phone %></div>
+      <div><strong>Borrow Date:</strong> <%= @book_transaction.borrow_date.strftime("%d/%m/%Y") %></div>
+      <div>
+        <strong>Return Date:</strong> 
+        <%= @book_transaction.return_date ? @book_transaction.return_date.strftime("%d/%m/%Y") : 'Not returned yet' %>
+      </div>
+    </div>
+
+    <!-- Return Book Button -->
+    <% if @book_transaction.return_date.nil? %>
+      <%= link_to 'Return Book', return_book_book_transaction_path(@book_transaction), method: :put, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+    <% else %>
+      <button disabled class="bg-gray-500 text-white font-bold py-2 px-4 rounded">Book Returned</button>
+    <% end %>
+  </div>
+</div>

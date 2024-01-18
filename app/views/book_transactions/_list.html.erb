@@ -1,0 +1,68 @@
+<div class="overflow-x-auto">
+  <h1>Book Transactions</h1>
+  <table class="min-w-full bg-white border-collapse w-full">
+    <thead>
+      <tr>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Transaction ID
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Book Name
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Book Author
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Borrower Name
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Borrower Phone
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Borrow Date
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Return Date
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700">
+      <% @book_transactions.each do |bt| %>
+        <tr>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= bt.id %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= link_to book_path(bt.book_master) do %>
+              <%= bt.book_master.name %>
+            <% end%>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= bt.book_master.author %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= bt.borrower.user.name %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= bt.borrower.user.phone %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= bt.borrow_date.strftime("%d/%m/%Y") %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= bt.return_date.strftime("%d/%m/%Y") rescue nil %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= link_to "Detail", bt %>
+          </td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @book_transactions %>
+</div>
+

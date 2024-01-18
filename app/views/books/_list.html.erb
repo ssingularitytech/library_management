@@ -1,0 +1,63 @@
+<div class="overflow-x-auto">
+  <h1>Books</h1>
+  <table class="min-w-full bg-white border-collapse w-full">
+    <thead>
+      <tr>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Book ID
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Name
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Author
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Publisher
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Price
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Language
+        </th>
+        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          Genre
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700">
+      <% @books.each do |book| %>
+        <tr>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= book.id %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= link_to book_path(book) do %>
+              <%= book.name %>
+            <% end%>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= book.author %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= book.publisher %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= book.price %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= book.language %>
+          </td>
+          <td class="px-6 py-4 whitespace-no-wrap text-black">
+            <%= link_to book.topic do %>
+              <%= book.topic.name %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= will_paginate @books %>
+</div>
+

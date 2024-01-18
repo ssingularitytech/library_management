@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  audio_url: MyString
+  status: MyString
+  duration: 1
+  starts_at: 2024-01-11 18:12:02
+  ends_at: 2024-01-11 18:12:02
+  lead: one
+  employee: one
+
+two:
+  audio_url: MyString
+  status: MyString
+  duration: 1
+  starts_at: 2024-01-11 18:12:02
+  ends_at: 2024-01-11 18:12:02
+  lead: two
+  employee: two
