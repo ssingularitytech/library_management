@@ -4,6 +4,8 @@ class BookMaster < ApplicationRecord
   has_many :borrowers, through: :book_transactions, source: :borrower
   has_many :users, through: :borrowers, source: :user
 
+  has_one_attached :serial_number_image
+
 
   scope :active_borrowers, -> { joins(:book_transactions).where(book_transactions: {return_date: nil}).distinct }
   scope :available, -> { joins(:book_transactions).where(book_transactions: {return_date: nil}).distinct }

@@ -80,3 +80,6 @@ gem 'rails_admin', '~> 3.0'
 gem "sassc-rails"
 gem "ffaker"
 gem 'will_paginate', '~> 4.0'
+gem 'activestorage'
+gem "image_processing", "~> 1.2"
+gem 'active_model_serializers', '~> 0.10.13'
