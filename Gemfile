@@ -78,7 +78,7 @@ end
 gem "devise", "~> 4.9"
 gem 'devise-tailwindcssed'
 gem 'rails_admin', '~> 3.0'
-gem "sassc-rails"
+gem "sassc-rails", require: false
 gem "ffaker"
 gem 'will_paginate', '~> 4.0'
 gem 'activestorage'
