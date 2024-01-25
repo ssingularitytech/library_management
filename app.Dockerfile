@@ -16,7 +16,7 @@ COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 COPY . /app
 
-EXPOSE 9169
+EXPOSE 9969
 
 RUN SECRET_KEY_BASE=1 RAILS_ENV=production bundle exec rake assets:precompile
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
