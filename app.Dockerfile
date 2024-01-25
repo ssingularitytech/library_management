@@ -1,10 +1,11 @@
 FROM ruby:3.3.0
 
-# Install node 14-LTS and yarn
 RUN apt install imagemagick
+# Install node 18-LTS and yarn
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
   nodejs \
+  libxrender1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 RUN npm install -g yarn@1
