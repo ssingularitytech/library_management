@@ -28,6 +28,22 @@ class BookTransactionsController < ApplicationController
 
   def new
     @book_transaction = BookTransaction.new
+
+    if params[:book_master_id].present?
+      @book_master = BookMaster.available.find_by(id: params[:book_master_id])
+
+      if @book_master.blank?
+        redirect_to new_book_transaction_path, alert: "Book not available"
+        return
+      end
+      @book_transaction.book_master_id = @book_master.id
+    end
+
+    # respond_to do |format|
+    #   format.html
+    #   format.turbo_stream { render turbo_stream: turbo_stream.replace(@book_transaction, partial: "book_transactions/form", locals: { book_transaction: @book_transaction }) }
+    # end
+
   end
 
   def create

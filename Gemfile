@@ -59,6 +59,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem 'erb-formatter'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -77,7 +78,7 @@ end
 gem "devise", "~> 4.9"
 gem 'devise-tailwindcssed'
 gem 'rails_admin', '~> 3.0'
-gem "sassc-rails"
+gem "sassc-rails", require: false
 gem "ffaker"
 gem 'will_paginate', '~> 4.0'
 gem 'activestorage'

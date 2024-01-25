@@ -1,5 +1,6 @@
 FROM ruby:3.0.0
 
+RUN apt install imagemagick
 RUN apt-get update -qq && apt-get install -qq --no-install-recommends \
     build-essential nodejs \
   && apt-get clean \
