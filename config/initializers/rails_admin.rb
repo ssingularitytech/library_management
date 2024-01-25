@@ -38,5 +38,22 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     # history_index
     # history_show
+    #
+
+
+  config.model 'BookMaster' do
+    include_all_fields
+
+    field :serial_number_image do
+      pretty_value do
+        if bindings[:object].serial_number_image.attached?
+          bindings[:view].tag(:img, src: bindings[:object].serial_number_image.url, height: '100px')
+        else
+          bindings[:view].tag(:img, src: "https://barcodeapi.org/api/auto/#{bindings[:object].serial_number}", height: '100%', width: '200px')
+        end
+      end
+    end
+  end
+
   end
 end

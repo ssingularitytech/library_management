@@ -20,4 +20,10 @@ Rails.application.routes.draw do
   end
   resources :borrowers, only: [:index, :show]
 
+  namespace :api do
+    namespace :v1 do
+      get 'book_masters/:serial_number', to: 'book_masters#show'
+    end
+  end
+
 end
