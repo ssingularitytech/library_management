@@ -127,8 +127,8 @@ export default class extends Controller {
 
       })
       .catch((error) => {
-        console.error("Error fetching hsn master:", error);
-        alert("Error fetching hsn master:" + error);
+        console.error("Error fetching Book Details:", error);
+        alert("Error fetching Book Details: " + error);
       });
   }
 
