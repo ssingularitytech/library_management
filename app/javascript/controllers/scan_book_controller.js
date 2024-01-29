@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { Turbo } from "@hotwired/turbo-rails";
 import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
+import SlimSelect from 'slim-select'
 
 // Connects to data-controller="scan-book"
 export default class extends Controller {
@@ -31,6 +32,17 @@ export default class extends Controller {
             sourceOption.text = element.label
             sourceOption.value = element.deviceId
             this.sourceSelectTarget.appendChild(sourceOption)
+            this.sourceSelectTarget.slim.destroy();
+            this.sourceSelectTarget.slim = new SlimSelect({
+              select: this.sourceSelectTarget,
+              showSearch: false,
+              allowDeselect: true,
+              placeholder: true,
+              settings: {
+                closeOnSelect: false,
+                placeholderText: this.sourceSelectTarget.dataset.placeholder,
+              }
+            });
           });
 
           this.sourceSelectTarget.addEventListener('change', () => {
@@ -65,7 +77,7 @@ export default class extends Controller {
       alert('No scanner present');
       return;
     }
-    this.codeReader.decodeFromVideoDevice(this.selectedDeviceId, 'video', (result, err) => {
+    this.codeReader.decodeFromVideoDevice(undefined, 'video', (result, err) => {
       if (result) {
         console.log(result)
         document.getElementById('result').textContent = result.text
