@@ -18,7 +18,6 @@ document.addEventListener("turbo:load", (e) => {
       allowDeselect: true,
       placeholder: true,
       settings: {
-        closeOnSelect: false,
         placeholderText: selectTag.dataset.placeholder,
       }
     });

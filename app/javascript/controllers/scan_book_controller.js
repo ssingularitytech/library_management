@@ -19,6 +19,13 @@ export default class extends Controller {
     this.initZxScanner();
 
     console.log('ZXing code reader initialized');
+
+    document.addEventListener("turbo:frame-missing", event => {
+      if (event.detail.response.redirected) {
+        event.preventDefault()
+        event.detail.visit(event.detail.response)
+      }
+    });
   }
 
   initZxScanner() {
