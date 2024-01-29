@@ -46,7 +46,7 @@
         <% @recent_transactions.each do |transaction| %>
           <li>
             <%= link_to transaction.book_master.name, book_path(transaction.book_master) %> borrowed by <%= link_to transaction.borrower.user.name, borrower_path(transaction.borrower) %>
-            on <%= transaction.borrow_date.strftime("%d/%m/%Y") %>.
+            on <%= transaction.borrow_date.strftime("%d/%m/%Y") rescue "NA" %>.
           </li>
         <% end %>
       </ul>
@@ -59,7 +59,7 @@
       <ul class="list-disc list-inside">
         <% @overdue_books.each do |book| %>
           <li>
-            <%= book.name %> (Due on <%= book.book_transactions.last.return_date.strftime("%d/%m/%Y") %>)
+            <%= book.name %> (Due on <%= book.book_transactions.last.return_date.strftime("%d/%m/%Y") rescue "NA" %>)
           </li>
         <% end %>
       </ul>

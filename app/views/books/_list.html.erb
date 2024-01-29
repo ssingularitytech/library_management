@@ -3,28 +3,76 @@
   <table class="min-w-full bg-white border-collapse w-full">
     <thead>
       <tr>
-        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <th
+          class="
+            px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200
+            dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500
+            dark:text-gray-400 uppercase tracking-wider
+          "
+        >
           Book ID
         </th>
-        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <th
+          class="
+            px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200
+            dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500
+            dark:text-gray-400 uppercase tracking-wider
+          "
+        >
           Name
         </th>
-        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <th
+          class="
+            px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200
+            dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500
+            dark:text-gray-400 uppercase tracking-wider
+          "
+        >
           Author
         </th>
-        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <th
+          class="
+            px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200
+            dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500
+            dark:text-gray-400 uppercase tracking-wider
+          "
+        >
           Publisher
         </th>
-        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <th
+          class="
+            px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200
+            dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500
+            dark:text-gray-400 uppercase tracking-wider
+          "
+        >
           Price
         </th>
-        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <th
+          class="
+            px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200
+            dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500
+            dark:text-gray-400 uppercase tracking-wider
+          "
+        >
           Language
         </th>
-        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <th
+          class="
+            px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200
+            dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500
+            dark:text-gray-400 uppercase tracking-wider
+          "
+        >
           Genre
         </th>
-        <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+        <th
+          class="
+            px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200
+            dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500
+            dark:text-gray-400 uppercase tracking-wider
+          "
+        >
           Bar Code
         </th>
       </tr>
@@ -38,7 +86,7 @@
           <td class="px-6 py-4 whitespace-no-wrap text-black">
             <%= link_to book_path(book) do %>
               <%= book.name %>
-            <% end%>
+            <% end %>
           </td>
           <td class="px-6 py-4 whitespace-no-wrap text-black">
             <%= book.author %>
@@ -58,7 +106,12 @@
             <% end %>
           </td>
           <td>
-            <img class="w-48" src="https://barcodeapi.org/api/auto/<%= book.serial_number %>">
+            <a data-fslightbox="gallery" href="<%= url_for(book.serial_number_image) %>">
+              <img
+                class="w-48"
+                src="<%= url_for(book.serial_number_image) %>"
+              >
+            </a>
           </td>
         </tr>
       <% end %>
@@ -66,4 +119,3 @@
   </table>
   <%= will_paginate @books %>
 </div>
-

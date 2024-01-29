@@ -37,14 +37,16 @@ end
 
 if BookMaster.count.zero?
   1000.times do |i|
-    BookMaster.create!(
+    @book_master = BookMaster.new(
       name: FFaker::Book.title,
       author: FFaker::Book.author,
       publisher: FFaker::Name.name,
       price: rand(100..1000),
       language: FFaker::Locale.language,
-      topic_id: Topic.all.sample.id
+      topic_id: Topic.all.sample.id,
     )
+    @book_master.save!
+    @book_master.serial_number_image.attach(io: URI.open("https://barcodeapi.org/api/auto/#{@book_master.serial_number}"), filename: "book-#{@book_master.serial_number}.jpg")
   end
 end
 
@@ -54,5 +56,12 @@ if BookTransaction.count.zero?
     borrower = Borrower.all.sample
     book.issue_book(borrower.user_id)
     book.return_book(borrower.user_id) if rand(1..10) > 8
+  end
+end
+
+
+BookMaster.all.each do |book|
+  if !book.serial_number_image.attached?
+    book.serial_number_image.attach(io: URI.open("https://barcodeapi.org/api/auto/#{book.serial_number}"), filename: "#{book.serial_number}.jpg")
   end
 end

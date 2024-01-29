@@ -47,9 +47,8 @@ RailsAdmin.config do |config|
     field :serial_number_image do
       pretty_value do
         if bindings[:object].serial_number_image.attached?
-          bindings[:view].tag(:img, src: bindings[:object].serial_number_image.url, height: '100px')
-        else
-          bindings[:view].tag(:img, src: "https://barcodeapi.org/api/auto/#{bindings[:object].serial_number}", height: '100%', width: '200px')
+          path = Rails.application.routes.url_helpers.rails_blob_path(bindings[:object].serial_number_image, only_path: true)
+          bindings[:view].tag(:img, src: path, height: '100%', width: '150px')
         end
       end
     end
