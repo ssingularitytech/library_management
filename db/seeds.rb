@@ -59,9 +59,3 @@ if BookTransaction.count.zero?
   end
 end
 
-
-BookMaster.all.each do |book|
-  if !book.serial_number_image.attached?
-    book.serial_number_image.attach(io: URI.open("https://barcodeapi.org/api/auto/#{book.serial_number}"), filename: "#{book.serial_number}.jpg")
-  end
-end
