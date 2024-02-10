@@ -106,11 +106,12 @@
             <% end %>
           </td>
           <td>
-            <a data-fslightbox="gallery" href="<%= url_for(book.serial_number_image) %>">
-              <img
-                class="w-48"
-                src="<%= url_for(book.serial_number_image) %>"
-              >
+            <a
+              data-fslightbox="gallery"
+              target="_blank"
+              href="<%= url_for(book.serial_number_image) %>"
+            >
+              <img class="w-48" src="<%= url_for(book.serial_number_image) %>">
             </a>
           </td>
         </tr>
