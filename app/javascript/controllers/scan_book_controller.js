@@ -18,6 +18,7 @@ export default class extends Controller {
   codeReader = null;
   scannerPresent = false;
   scannerActive = false;
+  barcodeInput = "";
 
   connect() {
     this.codeReader = new BrowserMultiFormatReader();
@@ -26,12 +27,31 @@ export default class extends Controller {
 
     console.log("ZXing code reader initialized");
 
+    this.activateBarcodeScanner();
+
     document.addEventListener("turbo:frame-missing", (event) => {
       if (event.detail.response.redirected) {
         event.preventDefault();
         event.detail.visit(event.detail.response);
       }
     });
+  }
+
+  activateBarcodeScanner() {
+    console.log("Barcode scanner activated");
+    document.addEventListener("keypress", this.handleBarcodeInput);
+  }
+
+  handleBarcodeInput = (event) => {
+    console.log("Barcode input detected: ", event.key);
+    if (event.key !== "Enter") {
+      this.barcodeInput += event.key;
+    } else {
+      // 'Enter' key was pressed, indicating end of barcode input
+      console.log("Scanned Barcode: ", this.barcodeInput);
+      this.fetchBookMaster(this.barcodeInput); // Fetch book master using the barcode input
+      this.barcodeInput = ""; // Reset for next scan
+    }
   }
 
   initZxScanner() {
