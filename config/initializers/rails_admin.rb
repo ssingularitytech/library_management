@@ -29,6 +29,7 @@ RailsAdmin.config do |config|
     index                         # mandatory
     new
     export
+    import
     bulk_delete
     show
     edit

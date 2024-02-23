@@ -84,3 +84,4 @@ gem 'will_paginate', '~> 4.0'
 gem 'activestorage'
 gem "image_processing", "~> 1.2"
 gem 'active_model_serializers', '~> 0.10.13'
+gem "rails_admin_import", "~> 3.0"

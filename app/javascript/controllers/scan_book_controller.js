@@ -98,7 +98,7 @@ export default class extends Controller {
 
   resetScanner() {
     if (!this.scannerPresent) {
-      alert("No scanner present");
+      // alert("No scanner present");
       return;
     }
     this.codeReader.reset();
@@ -108,7 +108,7 @@ export default class extends Controller {
 
   startScanner() {
     if (!this.scannerPresent) {
-      alert("No scanner present");
+      // alert("No scanner present");
       return;
     }
     this.codeReader.decodeFromVideoDevice(undefined, "video", (result, err) => {
@@ -129,7 +129,7 @@ export default class extends Controller {
 
   activateScanner() {
     if (!this.scannerPresent) {
-      alert("No scanner present");
+      // alert("No scanner present");
       return;
     }
     this.scannerActive = true;
@@ -140,11 +140,11 @@ export default class extends Controller {
 
   deactivateScanner() {
     if (!this.scannerPresent) {
-      alert("No scanner present");
+      // alert("No scanner present");
       return;
     }
     if (!this.scannerActive) {
-      alert("Scanner already inactive");
+      // alert("Scanner already inactive");
       return;
     }
     this.scannerActive = false;
