@@ -5,6 +5,8 @@ class BookMaster < ApplicationRecord
   has_many :borrowers, through: :book_transactions, source: :borrower
   has_many :users, through: :borrowers, source: :user
 
+  validates :total_qty, numericality: { greater_than_or_equal_to: 0 }
+
   has_one_attached :serial_number_image
 
 
@@ -15,7 +17,7 @@ class BookMaster < ApplicationRecord
   before_create :geneate_barcode_number
 
   def borrowed?
-    book_transactions.where(return_date: nil).any?
+    book_transactions.where(return_date: nil).count < total_qty
   end
 
   def geneate_barcode_number
@@ -24,15 +26,34 @@ class BookMaster < ApplicationRecord
   end
 
   def issue_book(user_id)
+    puts "Total qty: #{total_qty}"
+    puts "Borrowed qty: #{borrowed_book_qty}"
+    puts "Available qty: #{available_book_qty}"
+    return nil if available_book_qty < 0
+
     borrower = Borrower.find_by(user_id: user_id)
-    book_transactions.create(borrower_id: borrower.id, borrow_date: Time.now)
+    if borrower
+      # Create and return the book_transaction object
+      book_transactions.create(borrower_id: borrower.id, borrow_date: Time.now)
+    else
+      # Return nil if borrower is not found
+      nil
+    end
   end
 
   # method to return book take borrower_id as argument
   def return_book(user_id)
     borrower = Borrower.find_by(user_id: user_id)
     book_transaction = book_transactions.where(borrower_id: borrower.id, return_date: nil).first
-    book_transaction.update(return_date: Time.now)
+    book_transaction.update(return_date: Time.now) if book_transaction
+  end
+
+  def available_book_qty
+    total_qty - borrowed_book_qty
+  end
+
+  def borrowed_book_qty
+    book_transactions.where(return_date: nil).count
   end
 
   after_create :attach_barcode_image

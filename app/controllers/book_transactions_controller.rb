@@ -51,6 +51,10 @@ class BookTransactionsController < ApplicationController
     @borrower = Borrower.find_by(id: params[:book_transaction][:borrower_id])
     @book_transaction = @book_master.issue_book(@borrower.user_id)
 
-    redirect_to @book_transaction, notice: "Book issued successfully"
+    if @book_transaction.present?
+      redirect_to @book_transaction, notice: "Book issued successfully"
+    else
+      redirect_to root_path, alert: "Book not available"
+    end
   end
 end
