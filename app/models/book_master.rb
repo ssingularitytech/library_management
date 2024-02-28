@@ -11,13 +11,13 @@ class BookMaster < ApplicationRecord
 
 
   scope :active_borrowers, -> { joins(:book_transactions).where(book_transactions: {return_date: nil}).distinct }
-  scope :available, -> { left_outer_joins(:book_transactions).where(book_transactions: {return_date: nil}).distinct }
+  scope :available, -> { left_outer_joins(:book_transactions).where.not(book_transactions: {return_date: nil}).distinct }
   scope :inactive_borrowers, -> { joins(:book_transactions).where.not(book_transactions: {return_date: nil}).distinct }
 
   before_create :geneate_barcode_number
 
   def borrowed?
-    book_transactions.where(return_date: nil).count < total_qty
+    book_transactions.where(return_date: nil).count > total_qty
   end
 
   def geneate_barcode_number
@@ -29,7 +29,7 @@ class BookMaster < ApplicationRecord
     puts "Total qty: #{total_qty}"
     puts "Borrowed qty: #{borrowed_book_qty}"
     puts "Available qty: #{available_book_qty}"
-    return nil if available_book_qty < 0
+    return nil if available_book_qty <= 0
 
     borrower = Borrower.find_by(user_id: user_id)
     if borrower

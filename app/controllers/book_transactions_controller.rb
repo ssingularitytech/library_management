@@ -1,6 +1,28 @@
 class BookTransactionsController < ApplicationController
-  def index
-    @book_transactions = BookTransaction.includes(:book_master, :borrower).paginate(page: params[:page], per_page: 30)
+   def index
+    @book_transactions = BookTransaction.joins(book_master: [], borrower: :user).distinct
+
+    if params[:book_name].present?
+      @book_transactions = @book_transactions.where('book_masters.name LIKE ?', "%#{params[:book_name]}%")
+    end
+
+    if params[:author].present?
+      @book_transactions = @book_transactions.where('book_masters.author LIKE ?', "%#{params[:author]}%")
+    end
+
+    if params[:user_name].present?
+      @book_transactions = @book_transactions.where('users.name LIKE ?', "%#{params[:user_name]}%")
+    end
+
+    if params[:phone].present?
+      @book_transactions = @book_transactions.where('users.phone LIKE ?', "%#{params[:phone]}%")
+    end
+
+    if params[:serial_number].present?
+      @book_transactions = @book_transactions.where('book_masters.serial_number LIKE ?', "%#{params[:serial_number]}%")
+    end
+
+    @book_transactions = @book_transactions.paginate(page: params[:page], per_page: 10)
   end
 
   def active

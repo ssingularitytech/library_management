@@ -1,7 +1,42 @@
+<style>
+  .filter-input {
+    margin-top: 5px;
+    font-size: 12px;
+    width: 100%;
+    padding: 5px;
+  }
+</style>
 <div class="overflow-x-auto">
   <h1>Book Transactions</h1>
+  <%= form_tag book_transactions_path, method: :get, class: "filter-form", id: "filter-form" do %>
   <table class="min-w-full bg-white border-collapse w-full">
     <thead>
+      <tr>
+        <td></td>
+        <td>
+          <%= text_field_tag :book_name, params[:book_name], onchange: "this.form.submit();", placeholder: "Filter by Book Name", class: "filter-input" %>
+        </td>
+        <td>
+          <%= text_field_tag :author, params[:author], onchange: "this.form.submit();", placeholder: "Filter by Author", class: "filter-input" %>
+        </td>
+        <td>
+          <%= text_field_tag :user_name, params[:user_name], onchange: "this.form.submit();", placeholder: "Filter by User Name", class: "filter-input" %>
+        </td>
+        <td>
+          <%= text_field_tag :phone, params[:phone], onchange: "this.form.submit();", placeholder: "Filter by Phone", class: "filter-input" %>
+        </td>
+        <td></td>
+        <td></td>
+        <td>
+          <div class="flex space-x-2">
+            <%= submit_tag 'Filter', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+
+            <button type="button" onclick="resetFormAndSubmit();" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Reset
+            </button>
+          </div>
+        </td>
+      </tr>
       <tr>
         <th class="px-6 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-800 text-left text-xs leading-4 font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
           Transaction ID
@@ -63,6 +98,18 @@
       <% end %>
     </tbody>
   </table>
+  <% end %>
   <%= will_paginate @book_transactions %>
 </div>
+<script>
+  function resetFormAndSubmit() {
+    var form = document.getElementById("filter-form");
+    form.reset();
 
+    var inputs = document.getElementsByClassName('filter-input');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = '';
+    }
+    form.submit();
+  }
+</script>
