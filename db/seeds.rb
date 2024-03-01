@@ -16,7 +16,8 @@ if User.find_by(email: "admin@example.com").nil?
         password: "password",
         password_confirmation: "password",
         name: FFaker::Name.name,
-        phone: FFaker::PhoneNumber.phone_number,
+        # random 10 digit phone number 
+        phone: rand(10**9..10**10).to_s,
         address: FFaker::Address.street_address
       )
     )
