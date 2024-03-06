@@ -6,12 +6,13 @@ class BookMaster < ApplicationRecord
   has_many :users, through: :borrowers, source: :user
 
   validates :total_qty, numericality: { greater_than_or_equal_to: 0 }
+  validates :topic, presence: true
 
   has_one_attached :serial_number_image
 
 
   scope :active_borrowers, -> { joins(:book_transactions).where(book_transactions: {return_date: nil}).distinct }
-  scope :available, -> { left_outer_joins(:book_transactions).where.not(book_transactions: {return_date: nil}).distinct }
+  scope :available, -> { left_outer_joins(:book_transactions).where(book_transactions: {return_date: nil}).or(BookMaster.left_outer_joins(:book_transactions).where(book_transactions: { id: nil })).distinct }
   scope :inactive_borrowers, -> { joins(:book_transactions).where.not(book_transactions: {return_date: nil}).distinct }
 
   before_create :geneate_barcode_number

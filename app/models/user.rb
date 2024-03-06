@@ -13,4 +13,7 @@ class User < ApplicationRecord
     # check if any user already has the same phone number
     return errors.add(:phone, " number already exists") if User.where(phone: phone).exists?
   end
+
+  # validate email, name, phone and address as required fields in rails_admin
+  validates :email, :name, :phone, :address, presence: true
 end
